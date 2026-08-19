@@ -1,3 +1,4 @@
+import { Heart } from "lucide-react";
 import { profile } from "@/content/site";
 
 export default function Footer() {
@@ -10,7 +11,12 @@ export default function Footer() {
         <p className="label text-foreground/60">
           &copy; {year} {profile.fullName}
         </p>
-        <p className="label text-foreground/60">Built with Next.js</p>
+        <p className="label flex items-center gap-1.5 text-foreground/60">
+          Built with love
+          {/* Filled rather than outlined, and tied to --foreground so it
+              stays legible in both themes instead of a fixed colour. */}
+          <Heart size={12} fill="currentColor" stroke="none" />
+        </p>
       </div>
     </footer>
   );

@@ -59,7 +59,7 @@ export const profile = {
   greeting: "Hi, it's me",
   /** Path under public/. 3:4 portrait works best with the hero's aspect ratio below. */
   photo: "/photo.png",
-  role: "Data & AI Enthusiast",
+  role: "Data & AI/ML Engineer",
 
   /**
    * Hero paragraph. Two sentences, hard ceiling.
@@ -69,10 +69,10 @@ export const profile = {
   intro:
     "I build the pipelines that move data, the models that read it, and the dashboards people actually act on.",
 
-  email: "hello@example.com",
+  email: "endowbonapen2002@gmail.com",
   links: {
-    github: "https://github.com/",
-    linkedin: "https://linkedin.com/in/",
+    github: "https://github.com/EndowBonapen/",
+    linkedin: "https://www.linkedin.com/in/endowbonapen/",
     /** Drop the PDF at public/resume.pdf, or set to null to hide the button. */
     resume: "/resume.pdf" as string | null,
   },
@@ -102,7 +102,7 @@ export const about = [
 export const stats = [
   { value: "3+", label: "Years experience" },
   { value: "20+", label: "Projects completed" },
-  { value: "10+", label: "Models" },
+  { value: "10+", label: "Model deployed" },
   { value: "25+", label: "Data pipelines" },
 ];
 
