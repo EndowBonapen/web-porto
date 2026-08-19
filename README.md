@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Endow
 
-## Getting Started
-
-First, run the development server:
+Single-page portfolio. Next.js 16 (App Router) · React 19 · Tailwind v4 · TypeScript.
+Monochrome, dark by default, light on toggle.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build   # production build (also type-checks)
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Everything you will want to change lives in [`content/site.ts`](content/site.ts).**
+Profile, about, stack, work history, projects, links — all of it. You should
+never need to open a component to update the site.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> The content shipped in that file is **placeholder**. The voice and shape are
+> right; the facts are invented. Replace it before deploying.
 
-## Learn More
+Two things that will break if left as-is:
 
-To learn more about Next.js, take a look at the following resources:
+- `profile.email` — currently `hello@example.com`
+- `profile.links.resume` — points at `/resume.pdf`, which does not exist yet.
+  Drop the PDF into `public/`, or set the field to `null` to hide the button.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Changing the background
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+One word, same file:
 
-## Deploy on Vercel
+```ts
+export const background: BackgroundKey = "contour";
+//  "grid" | "grain" | "contour" | "dots" | "none"
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Visit **`/preview`** to compare all four side by side, in both themes. The
+variant currently wired up is marked *Currently live*. That page is
+`noindex` and blocked in `robots.txt`, so it is safe to keep around.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To add a fifth: write the component in `components/backgrounds/`, give it the
+same `BackgroundProps` signature, and add one line to the registry in
+[`components/backgrounds/index.tsx`](components/backgrounds/index.tsx).
+
+## Design rules worth keeping
+
+**Two colours only.** `--background` and `--foreground` in
+[`app/globals.css`](app/globals.css), swapped by `[data-theme]`. Every other
+shade is an opacity of the foreground. Adding a third colour would undo the
+whole look.
+
+**Contrast floors** (measured against both themes — light is always tighter):
+
+| Use | Minimum | Ratio |
+| --- | --- | --- |
+| Any text, any size | `text-foreground/60` | 5.18:1 |
+| Icons that carry meaning | `text-foreground/50` | 3.68:1 |
+| Decorative only (rules, middots, `aria-hidden`) | anything | — |
+
+Going lighter than `/60` on real text fails WCAG AA. It is tempting in a
+monochrome design — build hierarchy with size and spacing instead.
+
+**Geist throughout**, the way `vercel.com` does it — Geist Sans for everything
+and Geist Mono for labels, years and tags. With a single family carrying the
+page, hierarchy has to come from size, weight and tracking instead. Two
+utilities in `globals.css` hold that treatment so it stays consistent:
+
+- `.display` — weight 600, tracking `-0.03em`. Headings, the name, stat numbers.
+- `.label` — 11px uppercase mono, tracking `0.14em`. Section titles, years, tags.
+
+Tune either in one place rather than sprinkling `font-semibold tracking-tight`
+across components.
+
+**Motion is one-shot.** `Reveal` fades content up once, then stops observing.
+Under `prefers-reduced-motion` it is shown outright via CSS, never via JS.
+
+## Deploying
+
+1. Push to GitHub, import the repo on Vercel — it needs no configuration.
+2. Set `siteUrl` in `content/site.ts` to the real domain. Canonical URLs, the
+   sitemap, and the social preview image are all derived from it.
+
+The social card (`app/opengraph-image.tsx`) and favicon (`app/icon.tsx`) are
+generated at build time from the static Geist instances in `assets/`. Those are
+committed on purpose: fetching a font over the network would make the build
+depend on it, and Satori cannot resolve the weight axis of a variable font, so
+static cuts are required.
