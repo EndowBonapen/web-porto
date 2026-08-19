@@ -67,7 +67,7 @@ export const profile = {
    * without changing a word, rewrite it.
    */
   intro:
-    "I build the pipelines that move data, the models that read it, and the dashboards people actually act on.",
+    "Transforming data into insights and intelligent solutions. Building end-to-end solutions across data pipelines, AI models, and interactive analytics.",
 
   email: "endowbonapen2002@gmail.com",
   links: {
@@ -78,18 +78,11 @@ export const profile = {
   },
 };
 
-/**
- * About paragraphs. Keep it to two or three — this is not an autobiography.
- *
- * Rewritten from a first draft that read as generic resume copy ("Highly
- * motivated... passionate about continuous learning..."). Same facts —
- * Informatics degree, 3+ years, ML/DL/DS/DE, predictive modelling, NLP,
- * computer vision, automation — said in one voice, first person, no filler.
- */
+/** About paragraphs. Keep it to two or three — this is not an autobiography. */
 export const about = [
-  "I graduated in Informatics and spent the past three-plus years in industry roles spanning Machine Learning, Deep Learning, Data Science, and Data Engineering.",
-  "Most of my work sits at the intersection of those four — predictive models, NLP, computer vision — plus the automation that keeps operations running without someone babysitting them.",
-  "I do my best work in environments that keep changing, where the job is learning something new fast enough to solve a problem nobody has written the playbook for yet.",
+  "I graduated in Informatics and have 3+ years of industry experience across Machine Learning, Deep Learning, Data Science, and Data Engineering.",
+  "My work sits at the intersection of data and AI — from building data pipelines and automation workflows to developing predictive models, NLP solutions, and computer vision systems. I enjoy turning complex data and problems into practical solutions that make processes smarter and more efficient.",
+  "I do my best work in environments where problems are constantly changing, where learning something new is part of the job, and where technology can be used to create meaningful impact.",
 ];
 
 /**
