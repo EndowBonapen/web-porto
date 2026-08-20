@@ -23,9 +23,12 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center justify-center"
+      className="relative flex items-center justify-center sm:min-h-screen"
     >
-      <div className="mx-auto grid max-w-3xl grid-cols-1 items-center gap-8 px-6 py-32 sm:grid-cols-[13rem_1fr] sm:gap-10">
+      {/* min-h-screen only from sm: up. Forcing full-viewport height on every
+          phone (some run very tall) turned this into a huge dead zone before
+          About — mobile just gets comfortable padding instead. */}
+      <div className="mx-auto grid max-w-3xl grid-cols-1 items-center gap-8 px-6 py-16 sm:grid-cols-[13rem_1fr] sm:gap-10 sm:py-32">
         <Reveal className="mx-auto w-40 sm:mx-0 sm:w-full">
           <Image
             src={profile.photo}

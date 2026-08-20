@@ -249,21 +249,21 @@ export const projects: Project[] = [
     title: "Entropi Creator TikTok Ranking — US & IDN",
     blurb:
       "Built an end-to-end data pipeline to calculate and manage 10+ creator ranking programs across TikTok Agency programs (GO, TAP, and MCN), powering a centralized dashboard for creator performance monitoring and ranking insights.",
-    tech: ["Python", "SQL", "Airflow", "Dagster"],
+    tech: ["Python", "PostgreSQL", "Airflow", "Dagster"],
     icon: "TikTok",
   },
   {
     title: "Entropi Creator TikTok Leads",
     blurb:
       "Built an end-to-end data pipeline to identify, enrich, and rank creator leads based on performance data, enabling the BD team to efficiently discover, evaluate, and reach out to high-potential creators for agency recruitment.",
-    tech: ["Python", "SQL", "Airflow", "Dagster"],
+    tech: ["Python", "PostgreSQL", "Airflow", "Dagster"],
     icon: "TikTok",
   },
   {
     title: "Entropi Creator Performance Analytics",
     blurb:
       "Built an end-to-end creator analytics pipeline that consolidates video and live performance data across GO, TAP, and MCN programs. Engineered creator-level metrics and performance aggregations around GMV and other key KPIs, enabling the team to evaluate creator performance, compare program outcomes, and identify high-performing creators across the agency ecosystem.",
-    tech: ["Python", "SQL", "Airflow", "Dagster"],
+    tech: ["Python", "PostgreSQL", "Airflow", "Dagster"],
     icon: "TikTok",
   },
 ];
