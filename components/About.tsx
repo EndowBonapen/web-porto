@@ -4,7 +4,7 @@ import Section from "./Section";
 import Stats from "./Stats";
 
 /**
- * Same bordered-card treatment as the featured project in Projects.tsx —
+ * Same bordered-card treatment as the project carousel in Projects.tsx —
  * reusing it here rather than inventing a second "boxed content" pattern.
  */
 export default function About() {

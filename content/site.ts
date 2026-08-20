@@ -230,43 +230,40 @@ export const work: Role[] = [
 
 export type Project = {
   title: string;
-  /** One sentence. What it does, and what changed because it exists. */
+  /** What it does, and what changed because it exists. */
   blurb: string;
   tech: string[];
+  /** Cover mark shown in the carousel tile — a key into TECH_ICONS (components/tech-icons.tsx). */
+  icon: string;
   href?: string;
   repo?: string;
 };
 
-/** The one that gets the big card. Pick the piece worth being judged on. */
-export const featured: Project = {
-  title: "Streaming Analytics Pipeline",
-  blurb:
-    "End-to-end ingestion for live streaming metrics — Dagster orchestrating extraction into Postgres, dbt handling the modelling, and a dashboard on top that replaced a nightly export nobody trusted.",
-  tech: ["Dagster", "dbt", "PostgreSQL", "Python"],
-  repo: "https://github.com/",
-};
-
-/** The rest, as compact rows. Three or four is plenty. */
+/**
+ * Shown one at a time in a carousel (components/Projects.tsx), not a grid —
+ * built to keep working as more get added, rather than needing re-layout
+ * every time the count changes.
+ */
 export const projects: Project[] = [
   {
-    title: "Churn Signal",
+    title: "Entropi Creator TikTok Ranking — US & IDN",
     blurb:
-      "Gradient-boosted model flagging accounts likely to lapse, scored weekly and pushed straight into the CRM.",
-    tech: ["scikit-learn", "MLflow"],
-    repo: "https://github.com/",
+      "Built an end-to-end data pipeline to calculate and manage 10+ creator ranking programs across TikTok Agency programs (GO, TAP, and MCN), powering a centralized dashboard for creator performance monitoring and ranking insights.",
+    tech: ["Python", "SQL", "Airflow", "Dagster"],
+    icon: "TikTok",
   },
   {
-    title: "Metric Contracts",
+    title: "Entropi Creator TikTok Leads",
     blurb:
-      "A small dbt package that fails the build when a metric definition drifts from its documented contract.",
-    tech: ["dbt", "SQL"],
-    repo: "https://github.com/",
+      "Built an end-to-end data pipeline to identify, enrich, and rank creator leads based on performance data, enabling the BD team to efficiently discover, evaluate, and reach out to high-potential creators for agency recruitment.",
+    tech: ["Python", "SQL", "Airflow", "Dagster"],
+    icon: "TikTok",
   },
   {
-    title: "Toll Lane Simulator",
+    title: "Entropi Creator Performance Analytics",
     blurb:
-      "Queue simulation for Indonesian holiday traffic, built to answer one argument about lane allocation.",
-    tech: ["Python", "SimPy"],
-    repo: "https://github.com/",
+      "Built an end-to-end creator analytics pipeline that consolidates video and live performance data across GO, TAP, and MCN programs. Engineered creator-level metrics and performance aggregations around GMV and other key KPIs, enabling the team to evaluate creator performance, compare program outcomes, and identify high-performing creators across the agency ecosystem.",
+    tech: ["Python", "SQL", "Airflow", "Dagster"],
+    icon: "TikTok",
   },
 ];

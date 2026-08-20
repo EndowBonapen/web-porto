@@ -1,102 +1,83 @@
-import { ArrowUpRight } from "lucide-react";
-import { featured, projects, type Project } from "@/content/site";
-import Reveal from "./Reveal";
+"use client";
+
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { projects } from "@/content/site";
 import Section from "./Section";
-
-/** Prefer a live demo over a repo when both exist. */
-function linkFor(project: Project) {
-  return project.href ?? project.repo;
-}
+import TechChip from "./TechChip";
+import { TECH_ICONS } from "./tech-icons";
 
 /**
- * Metadata, not decoration — plain mono text rather than coloured pills,
- * so it stays consistent with how the Stack section treats tool names.
- */
-function Tech({ items }: { items: string[] }) {
-  return (
-    <ul className="flex flex-wrap gap-x-3 gap-y-1">
-      {items.map((item) => (
-        <li key={item} className="label text-foreground/60">
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/**
- * One large card, then compact rows. The uniform grid where every project
- * carries equal weight is the single clearest tell of a template — this says
- * outright which piece is worth being judged on.
+ * One project at a time, cycled with prev/next — not a grid.
+ *
+ * With three projects today a grid would work, but this is meant to keep
+ * being the right shape as more get added later, rather than needing a
+ * re-layout (3 columns, then 4, then an awkward 5th) every time one is.
  */
 export default function Projects() {
-  const featuredHref = linkFor(featured);
+  const [index, setIndex] = useState(0);
+  const project = projects[index];
+  const Icon = TECH_ICONS[project.icon];
+
+  function prev() {
+    setIndex((i) => (i - 1 + projects.length) % projects.length);
+  }
+
+  function next() {
+    setIndex((i) => (i + 1) % projects.length);
+  }
 
   return (
     <Section id="projects" label="Projects">
-      <Reveal>
-        <a
-          href={featuredHref}
-          target="_blank"
-          rel="noreferrer"
-          className="group block rounded-xl border border-foreground/10 bg-foreground/[0.02] p-6 transition-colors hover:border-foreground/25 sm:p-8"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <h3 className="display text-2xl leading-tight sm:text-3xl">
-              {featured.title}
-            </h3>
-            <ArrowUpRight
-              size={20}
-              className="mt-1 shrink-0 text-foreground/25 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
-            />
-          </div>
-
-          <p className="mt-4 max-w-prose text-sm leading-relaxed text-foreground/65">
-            {featured.blurb}
+      <div className="rounded-xl border border-foreground/10 bg-foreground/[0.02] p-6 sm:p-8">
+        <div className="flex items-center justify-between gap-4">
+          <p className="label text-foreground/40">
+            {index + 1} / {projects.length}
           </p>
 
-          <div className="mt-6">
-            <Tech items={featured.tech} />
-          </div>
-        </a>
-      </Reveal>
+          {projects.length > 1 && (
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Previous project"
+                className="grid h-8 w-8 place-items-center rounded-full border border-foreground/15 text-foreground/60 transition-colors hover:border-foreground/40 hover:text-foreground"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Next project"
+                className="grid h-8 w-8 place-items-center rounded-full border border-foreground/15 text-foreground/60 transition-colors hover:border-foreground/40 hover:text-foreground"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
+        </div>
 
-      <ul className="mt-10">
-        {projects.map((project, i) => {
-          const href = linkFor(project);
+        <div className="mt-5 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          {Icon && (
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-foreground/10 bg-foreground/[0.03] text-foreground">
+              <Icon size={26} />
+            </span>
+          )}
+          <h3 className="display text-xl leading-tight sm:text-2xl">
+            {project.title}
+          </h3>
+        </div>
 
-          return (
-            <li key={project.title}>
-              <Reveal delay={i * 60}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group grid gap-2 border-t border-foreground/10 py-5 transition-colors hover:border-foreground/25"
-                >
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="text-base text-foreground/90 transition-colors group-hover:text-foreground">
-                      {project.title}
-                    </h3>
-                    <ArrowUpRight
-                      size={15}
-                      className="shrink-0 self-center text-foreground/20 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground/70"
-                    />
-                  </div>
+        <p className="mt-4 max-w-prose text-sm leading-relaxed text-foreground/65 sm:text-base">
+          {project.blurb}
+        </p>
 
-                  <p className="max-w-prose text-sm leading-relaxed text-foreground/60">
-                    {project.blurb}
-                  </p>
-
-                  <div className="mt-1">
-                    <Tech items={project.tech} />
-                  </div>
-                </a>
-              </Reveal>
-            </li>
-          );
-        })}
-      </ul>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {project.tech.map((name) => (
+            <TechChip key={name} name={name} />
+          ))}
+        </div>
+      </div>
     </Section>
   );
 }
