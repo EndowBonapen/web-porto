@@ -1,5 +1,5 @@
 import { Mail } from "lucide-react";
-import { profile } from "@/content/site";
+import { contactIntro, profile } from "@/content/site";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import Reveal from "./Reveal";
 import Section from "./Section";
@@ -23,8 +23,7 @@ export default function Contact() {
     <Section id="contact" label="Contact">
       <Reveal>
         <p className="max-w-md text-sm leading-relaxed text-foreground/65">
-          Open to new roles, collaborations, or just talking shop about data.
-          Pick whichever of these you actually check.
+          {contactIntro}
         </p>
       </Reveal>
 

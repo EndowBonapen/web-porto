@@ -110,36 +110,42 @@ export default function Projects() {
 
   return (
     <Section id="projects" label="Projects">
-      <div className="rounded-xl border border-foreground/10 bg-foreground/[0.02] p-6 sm:p-8">
-        <div className="flex items-center justify-between gap-4">
-          <p className="label text-foreground/40">
-            {index + 1} / {projects.length}
-          </p>
+      {/* Counter and arrows are chrome around the carousel, not part of the
+          card — they stay put while whole cards slide through beneath them. */}
+      <div className="flex items-center justify-between gap-4">
+        <p className="label text-foreground/40">
+          {index + 1} / {projects.length}
+        </p>
 
-          {projects.length > 1 && (
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => goTo(-1)}
-                aria-label="Previous project"
-                className="grid h-8 w-8 place-items-center rounded-full border border-foreground/15 text-foreground/60 transition-colors hover:border-foreground/40 hover:text-foreground"
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <button
-                type="button"
-                onClick={() => goTo(1)}
-                aria-label="Next project"
-                className="grid h-8 w-8 place-items-center rounded-full border border-foreground/15 text-foreground/60 transition-colors hover:border-foreground/40 hover:text-foreground"
-              >
-                <ChevronRight size={16} />
-              </button>
-            </div>
-          )}
-        </div>
+        {projects.length > 1 && (
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => goTo(-1)}
+              aria-label="Previous project"
+              className="grid h-8 w-8 place-items-center rounded-full border border-foreground/15 text-foreground/60 transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={() => goTo(1)}
+              aria-label="Next project"
+              className="grid h-8 w-8 place-items-center rounded-full border border-foreground/15 text-foreground/60 transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        )}
+      </div>
 
-        {/* Draggable with mouse or a finger — no click required. Release
-            past DRAG_THRESHOLD commits a slide; short of it, it springs back. */}
+      {/* Clips the card during its off-centre travel (drag, or the
+          exit/enter swap) so it can never push the page wider than the
+          viewport — the card itself moves well past the section's edges. */}
+      <div className="relative mt-5 overflow-hidden">
+        {/* The card is what slides — border, background and all — with
+            mouse or a finger, no click required. Release past
+            DRAG_THRESHOLD commits a slide; short of it, it springs back. */}
         <div
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -153,9 +159,9 @@ export default function Projects() {
               : "none",
             touchAction: "pan-y",
           }}
-          className="cursor-grab select-none active:cursor-grabbing"
+          className="cursor-grab select-none rounded-xl border border-foreground/10 bg-foreground/[0.02] p-6 active:cursor-grabbing sm:p-8"
         >
-          <div className="mt-5 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             {Icon && (
               <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-foreground/10 bg-foreground/[0.03] text-foreground">
                 <Icon size={26} />

@@ -28,7 +28,9 @@ export default function Hero() {
       {/* min-h-screen only from sm: up. Forcing full-viewport height on every
           phone (some run very tall) turned this into a huge dead zone before
           About — mobile just gets comfortable padding instead. */}
-      <div className="mx-auto grid max-w-3xl grid-cols-1 items-center gap-8 px-6 py-16 sm:grid-cols-[13rem_1fr] sm:gap-10 sm:py-32">
+      {/* Extra top clearance on mobile specifically — the photo was sitting
+          almost flush against the fixed nav with no breathing room. */}
+      <div className="mx-auto grid max-w-3xl grid-cols-1 items-center gap-8 px-6 pt-28 pb-16 sm:grid-cols-[13rem_1fr] sm:gap-10 sm:py-32">
         <Reveal className="mx-auto w-40 sm:mx-0 sm:w-full">
           <Image
             src={profile.photo}

@@ -78,6 +78,10 @@ export const profile = {
   },
 };
 
+/** Intro line above the contact channels. */
+export const contactIntro =
+  "I'm always open to discussing new projects, opportunities, or partnerships. Whether you have a question or just want to say hi, feel free to reach out!";
+
 /** About paragraphs. Keep it to two or three — this is not an autobiography. */
 export const about = [
   "I graduated in Informatics and have 3+ years of industry experience across Machine Learning, Deep Learning, Data Science, and Data Engineering.",
